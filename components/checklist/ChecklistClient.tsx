@@ -65,9 +65,13 @@ export function ChecklistClient() {
             ]),
           ),
         );
-      } catch {
+      } catch (loadError) {
         if (!cancelled) {
-          setError("Нет соединения с БД. Проверьте DATABASE_URL и prisma db push.");
+          setError(
+            loadError instanceof Error
+              ? loadError.message
+              : "Нет соединения с БД. Проверьте DATABASE_URL и prisma db push.",
+          );
         }
       } finally {
         if (!cancelled) {

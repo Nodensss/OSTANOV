@@ -10,7 +10,13 @@ export async function ensureSessionId() {
   });
 
   if (!response.ok) {
-    throw new Error("Не удалось создать или получить рабочую сессию");
+    const data = (await response.json().catch(() => null)) as {
+      error?: string;
+      hint?: string;
+    } | null;
+    throw new Error(
+      data?.hint ?? data?.error ?? "Не удалось создать или получить рабочую сессию",
+    );
   }
 
   const data = (await response.json()) as { sessionId: string };
