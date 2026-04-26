@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  checkboxes Checkbox[]
+  timers     TimerState[]
+  attempts   TrainerAttempt[]
+}
+
+model Checkbox {
+  id        String    @id @default(uuid())
+  sessionId String
+  checkId   String
+  checked   Boolean   @default(false)
+  checkedAt DateTime?
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, checkId])
+}
+
+model TimerState {
+  id        String    @id @default(uuid())
+  sessionId String
+  phaseId   Int
+  startedAt DateTime?
+  pausedAt  DateTime?
+  elapsedMs Int       @default(0)
+  finished  Boolean   @default(false)
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@unique([sessionId, phaseId])
+}
+
+model TrainerAttempt {
+  id         String    @id @default(uuid())
+  sessionId  String
+  startedAt  DateTime  @default(now())
+  finishedAt DateTime?
+  score      Int?
+  total      Int
+  answers    Json
+
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+}
