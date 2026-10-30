@@ -7,7 +7,9 @@ import ru.upestop.app.domain.PositionSearch
 class PositionSearchTest {
     @Test fun normalizedPositionsAndOperationText() {
         val phases = realAlgorithm().phases
-        listOf("a-401", "А401", "pv-10603", "14047").forEach { query -> assertTrue(query, PositionSearch.filter(phases, query).isNotEmpty()) }
+        listOf("a-401", "А401", "10603", "14047").forEach { query -> assertTrue(query, PositionSearch.filter(phases, query).isNotEmpty()) }
+        val synthetic = phases.first().copy(positions = listOf("PV-10603"), checks = emptyList())
+        assertEquals(listOf(synthetic), PositionSearch.filter(listOf(synthetic), "pv-10603"))
         assertEquals(phases, PositionSearch.filter(phases, ""))
         assertTrue(PositionSearch.filter(phases, "zzzzzzzz").isEmpty())
         assertEquals(PositionSearch.normalize("А–401"), PositionSearch.normalize(" a — 4 0 1 "))
