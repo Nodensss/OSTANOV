@@ -9,7 +9,7 @@ import ru.upestop.app.domain.AlgorithmValidator
 
 class AlgorithmJsonTest {
     @Test fun realAssetIsCompleteAndValid() {
-        val text = File(System.getProperty("algorithm.json")).readText()
+        val text = File(requireNotNull(System.getProperty("algorithm.json"))).readText()
         val raw = AlgorithmJson.parseToJsonElement(text).jsonObject
         val data = AlgorithmJson.decodeFromString<StopAlgorithm>(text)
         assertEquals(raw.getValue("phases").jsonArray.size, data.phases.size)
