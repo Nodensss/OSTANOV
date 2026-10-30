@@ -110,9 +110,9 @@ fun UpeApp(activity: MainActivity, vm: AppViewModel = viewModel()) {
                     }
                     composable("step") { StepScreen(algorithm, stored, vm, now, busy, notificationsAllowed, ::allowNotifications) { nav.navigate(it) } }
                     composable("timers") { TimersScreen(algorithm, stored, vm, now, busy, notificationsAllowed, ::allowNotifications) }
-                    composable("trainer") { Text(stringResource(R.string.trainer)) }
-                    composable("history") { Text(stringResource(R.string.history)) }
-                    composable("attempt/{id}") { backStack -> Text(stringResource(R.string.attempt_details)) }
+                    composable("trainer") { TrainerScreen(algorithm, stored, vm, busy) { nav.navigate(it) } }
+                    composable("history") { HistoryScreen(stored, vm) { nav.navigate("attempt/$it") } }
+                    composable("attempt/{id}") { backStack -> AttemptScreen(algorithm, stored, backStack.arguments?.getString("id").orEmpty(), vm) }
                     composable("report") { Text(stringResource(R.string.report)) }
                     composable("settings") { Text(stringResource(R.string.settings)) }
                 }
