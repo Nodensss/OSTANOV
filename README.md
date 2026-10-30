@@ -57,3 +57,9 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?sslmode=require"
 - `trainerQuestions` — вопросы тренажёра.
 
 Идентификаторы чеков должны оставаться стабильными, например `9.5`, потому что по ним сохраняется прогресс в БД.
+
+## Android-приложение
+
+«УПЭ Стоп» работает полностью офлайн: чек-лист, пошаговый режим, таймеры, справочник, тренажёр и журнал.
+[Сборка, установка и архитектура](android/README.md). APK из PR: Checks → Android APK → Artifacts → `upe-stop-apk`.
+После слияния сборки доступны в [Releases](https://github.com/Nodensss/OSTANOV/releases/latest).
