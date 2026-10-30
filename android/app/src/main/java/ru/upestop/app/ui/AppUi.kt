@@ -113,8 +113,8 @@ fun UpeApp(activity: MainActivity, vm: AppViewModel = viewModel()) {
                     composable("trainer") { TrainerScreen(algorithm, stored, vm, busy) { nav.navigate(it) } }
                     composable("history") { HistoryScreen(stored, vm) { nav.navigate("attempt/$it") } }
                     composable("attempt/{id}") { backStack -> AttemptScreen(algorithm, stored, backStack.arguments?.getString("id").orEmpty(), vm) }
-                    composable("report") { Text(stringResource(R.string.report)) }
-                    composable("settings") { Text(stringResource(R.string.settings)) }
+                    composable("report") { ReportScreen(algorithm, stored, snackbar) }
+                    composable("settings") { SettingsScreen(algorithm, stored, vm, permissionRevision, ::allowNotifications) }
                 }
                 if (reset) Confirm(stringResource(R.string.reset_question), { reset = false }, { vm.resetStop(); reset = false },
                     extra = { TextButton(shape = MaterialTheme.shapes.small, onClick = { shareReport(activity, buildReport(activity, algorithm, stored.checks, stored.timers, stored.settings.testMode)) }) { Text(stringResource(R.string.save_report)) } })
