@@ -138,7 +138,7 @@ TrainerQuestion { id: String, phaseId: Int?, question: String, options: List<Str
 | DI | Вручную: `AppContainer` в `Application`; без Hilt/Koin |
 | Тесты | JUnit 4 + `kotlinx-coroutines-test` (JVM unit-тесты) |
 
-Версии библиотек — в Приложении А. Эта связка **проверена**: каркас из Приложения А собирается командой `gradle testDebugUnitTest lintDebug assembleDebug`. Обновлять версии можно только до стабильных и только если сборка, тесты и lint по-прежнему проходят. Alpha/beta/RC не использовать.
+Версии библиотек — в Приложении А. Эта связка **проверена**: каркас из Приложения А собирается командой `gradle testDebugUnitTest lintDebug assembleDebug` (тесты и lint — 0 ошибок, debug-APK ≈ 17 МБ). **Версии зафиксированы, в рамках этой задачи их не обновлять.** Более новые версии существуют (AGP 9.x, Compose BOM 2026.x), но AGP 9 меняет DSL и подключение Kotlin, и переход ломает сборку. Обновление версий — отдельная задача. Новые зависимости добавлять можно, только стабильные и совместимые с этой связкой (alpha/beta/RC не использовать).
 
 ### 5.2. Идентификаторы
 
@@ -734,9 +734,9 @@ android {
 
     lint {
         abortOnError = true
-        // Приложение распространяется APK-файлом, не через Google Play:
-        // требование Play к targetSdk здесь неприменимо.
-        disable += "ExpiredTargetSdkVersion"
+        // Версии зафиксированы осознанно (проверенная связка, см. ТЗ 5.1),
+        // а приложение распространяется APK-файлом, не через Google Play.
+        disable += setOf("GradleDependency", "AndroidGradlePluginVersion", "ExpiredTargetSdkVersion")
     }
 }
 
