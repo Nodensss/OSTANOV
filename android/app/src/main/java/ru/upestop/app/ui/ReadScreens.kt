@@ -27,7 +27,7 @@ fun HomeScreen(data: StopAlgorithm, stored: StoredState, now: Long, navigate: (S
             Label(stringResource(R.string.current_stop), Cool); Text(stringResource(R.string.progress, progress.count, progress.total)); ProgressBlock(progress)
             progress.currentPhase?.let { Text(stringResource(R.string.phase_title, it.id, it.title)) }
             RunningTimers(data, stored, now) { navigate("checklist?phase=$it") }
-            Button(onClick = { navigate(if (progress.firstIndex < 0) "report" else "step") }, Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
+            Button(shape = MaterialTheme.shapes.small, onClick = { navigate(if (progress.firstIndex < 0) "report" else "step") }, modifier = Modifier.fillMaxWidth().heightIn(min = 56.dp)) {
                 Text(stringResource(if (progress.firstIndex < 0) R.string.stop_done else if (progress.count == 0) R.string.start_stop else R.string.continue_stop))
             }
         } }
@@ -40,8 +40,8 @@ fun ReferenceScreen(data: StopAlgorithm) {
     var query by rememberSaveable { mutableStateOf("") }
     val phases = remember(data, query) { PositionSearch.filter(data.phases, query) }
     Column {
-        OutlinedTextField(query, { query = it }, Modifier.fillMaxWidth().padding(16.dp), label = { Text(stringResource(R.string.search_label)) },
-            placeholder = { Text(stringResource(R.string.search_hint)) }, trailingIcon = { TextButton(onClick = { query = "" }) { Text(stringResource(R.string.clear)) } })
+        OutlinedTextField(query, { query = it }, modifier = Modifier.fillMaxWidth().padding(16.dp), label = { Text(stringResource(R.string.search_label)) },
+            placeholder = { Text(stringResource(R.string.search_hint)) }, trailingIcon = { TextButton(shape = MaterialTheme.shapes.small, onClick = { query = "" }) { Text(stringResource(R.string.clear)) } })
         LazyColumn(contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
             if (phases.isEmpty()) item { Text(stringResource(R.string.not_found, query)) }
             items(phases, key = { it.id }) { phase ->

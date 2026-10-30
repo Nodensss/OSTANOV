@@ -53,7 +53,7 @@ fun RunningTimers(data: StopAlgorithm, stored: StoredState, now: Long, onPhase: 
     stored.timers.filter { it.running }.forEach { timer ->
         val phase = data.phases.firstOrNull { it.id == timer.phaseId } ?: return@forEach
         val spec = phase.timer ?: return@forEach
-        TextButton(onClick = { onPhase(phase.id) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
+        TextButton(shape = MaterialTheme.shapes.small, onClick = { onPhase(phase.id) }, modifier = Modifier.fillMaxWidth().heightIn(min = 48.dp)) {
             Text(stringResource(R.string.timer_link, phase.id, TimerMath.format(TimerMath.remaining(timer, TimerMath.duration(spec.minutes, stored.settings.testMode), now))), fontFamily = FontFamily.Monospace)
         }
     }

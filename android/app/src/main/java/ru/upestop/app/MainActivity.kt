@@ -3,6 +3,7 @@ package ru.upestop.app
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.mutableIntStateOf
@@ -17,7 +18,10 @@ class MainActivity : ComponentActivity() {
     private val app get() = (application as UpeStopApp).container
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        enableEdgeToEdge(
+            statusBarStyle = SystemBarStyle.dark(0xFF0A0D0F.toInt()),
+            navigationBarStyle = SystemBarStyle.dark(0xFF0A0D0F.toInt())
+        )
         if (savedInstanceState == null) readIntent(intent)
         setContent { UpeTheme { UpeApp(this) } }
     }

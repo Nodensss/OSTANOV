@@ -37,7 +37,6 @@
     <string name="steps_progress">%1$d из %2$d шагов</string>
     <string name="phase_title">Этап %1$d · %2$s</string>
     <string name="phase_section">Этап %1$d · %2$s</string>
-    <string name="phase_number">Этап %1$d</string>
     <string name="phase_heading">Этап %1$d из %2$d · %3$s</string>
     <string name="step_count">Шаг %1$d из %2$d</string>
     <string name="phase_finished">Этап %1$d завершён</string>
@@ -116,15 +115,8 @@
     <string name="offline">Работает без интернета. Данные хранятся только на этом устройстве</string>
     <string name="timer_link">Этап %1$d · %2$s</string>
     <string name="timer_test_active">Тестовый режим: 1 мин = 1 с</string>
-    <string name="no_timers">Нет запущенных таймеров</string>
     <string name="attempt_details">Детали попытки</string>
-    <string name="set_label_all">Все вопросы</string>
-    <string name="set_label_rules">Критические правила</string>
-    <string name="set_label_retry">Повторить ошибки</string>
-    <string name="percent">%1$d%%</string>
-    <string name="history_line">%1$s · %2$s</string>
     <string name="notification_status">%1$s: %2$s</string>
     <string name="search_label">Поиск по позициям</string>
     <string name="close">Закрыть</string>
-    <string name="timer_idle">Не запускался</string>
 </resources>

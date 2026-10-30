@@ -25,7 +25,7 @@ fun Panel(modifier: Modifier = Modifier, color: Color = Border, content: @Compos
 fun Label(text: String, color: Color = Dim) { Text(text, color = color, fontFamily = FontFamily.Monospace, fontSize = 12.sp, letterSpacing = 1.sp) }
 @Composable
 fun Action(text: String, enabled: Boolean = true, onClick: () -> Unit) {
-    OutlinedButton(onClick, Modifier.fillMaxWidth().heightIn(min = 48.dp), enabled = enabled) { Text(text) }
+    OutlinedButton(onClick, Modifier.fillMaxWidth().heightIn(min = 48.dp), enabled = enabled, shape = MaterialTheme.shapes.small) { Text(text) }
 }
 @Composable
 fun ProgressBlock(progress: Progress) {
@@ -55,8 +55,8 @@ fun Param(check: CheckItem) { check.param?.let { Text(it, color = Amber, fontFam
 @Composable
 fun Confirm(title: String, onDismiss: () -> Unit, onConfirm: () -> Unit, extra: (@Composable () -> Unit)? = null) {
     AlertDialog(onDismissRequest = onDismiss, title = { Text(title) },
-        confirmButton = { TextButton(onClick = onConfirm) { Text(stringResource(R.string.reset)) } },
-        dismissButton = { Column { TextButton(onClick = onDismiss) { Text(stringResource(R.string.cancel)) }; extra?.invoke() } })
+        confirmButton = { TextButton(shape = MaterialTheme.shapes.small, onClick = onConfirm) { Text(stringResource(R.string.reset)) } },
+        dismissButton = { Column { TextButton(shape = MaterialTheme.shapes.small, onClick = onDismiss) { Text(stringResource(R.string.cancel)) }; extra?.invoke() } })
 }
 fun shareReport(context: Context, report: String) {
     context.startActivity(Intent.createChooser(Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, report), context.getString(R.string.share)))
