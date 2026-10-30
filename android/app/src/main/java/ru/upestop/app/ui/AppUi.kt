@@ -77,11 +77,11 @@ fun UpeApp(activity: MainActivity, vm: AppViewModel = viewModel()) {
     val isRoot = route in listOf("home", "reference", "trainer") || route.startsWith("checklist")
     Scaffold(
         topBar = { TopAppBar(title = { Text(stringResource(if (route.startsWith("checklist")) R.string.checklist else titles[route] ?: R.string.app_name)) },
-            navigationIcon = { if (!isRoot && route.isNotBlank()) IconButton(onClick = { nav.popBackStack() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } },
+            navigationIcon = { if (!isRoot && route.isNotBlank()) IconButton( onClick = { nav.popBackStack() }) { Icon(Icons.AutoMirrored.Filled.ArrowBack, stringResource(R.string.back)) } },
             actions = {
-                if (route == "reference") IconButton(onClick = { nav.navigate("rules") }) { Icon(Icons.Default.Warning, stringResource(R.string.rules)) }
+                if (route == "reference") IconButton( onClick = { nav.navigate("rules") }) { Icon(Icons.Default.Warning, stringResource(R.string.rules)) }
                 if (route.startsWith("checklist")) Box {
-                    IconButton(onClick = { menu = true }) { Icon(Icons.Default.MoreVert, stringResource(R.string.menu)) }
+                    IconButton( onClick = { menu = true }) { Icon(Icons.Default.MoreVert, stringResource(R.string.menu)) }
                     DropdownMenu(expanded = menu, onDismissRequest = { menu = false }) {
                         DropdownMenuItem(text = { Text(stringResource(R.string.report)) }, onClick = { menu = false; nav.navigate("report") })
                         DropdownMenuItem(text = { Text(stringResource(R.string.timers)) }, onClick = { menu = false; nav.navigate("timers") })
@@ -106,10 +106,10 @@ fun UpeApp(activity: MainActivity, vm: AppViewModel = viewModel()) {
                     composable("reference") { ReferenceScreen(algorithm) }
                     composable("rules") { RulesScreen(algorithm) }
                     composable("checklist?phase={phase}", arguments = listOf(navArgument("phase") { type = NavType.IntType; defaultValue = -1 })) { backStack ->
-                        Text(stringResource(R.string.checklist))
+                        ChecklistScreen(algorithm, stored, vm, now, busy, backStack.arguments?.getInt("phase") ?: -1, notificationsAllowed, ::allowNotifications)
                     }
-                    composable("step") { Text(stringResource(R.string.step)) }
-                    composable("timers") { Text(stringResource(R.string.timers)) }
+                    composable("step") { StepScreen(algorithm, stored, vm, now, busy, notificationsAllowed, ::allowNotifications) { nav.navigate(it) } }
+                    composable("timers") { TimersScreen(algorithm, stored, vm, now, busy, notificationsAllowed, ::allowNotifications) }
                     composable("trainer") { Text(stringResource(R.string.trainer)) }
                     composable("history") { Text(stringResource(R.string.history)) }
                     composable("attempt/{id}") { backStack -> Text(stringResource(R.string.attempt_details)) }
@@ -117,7 +117,7 @@ fun UpeApp(activity: MainActivity, vm: AppViewModel = viewModel()) {
                     composable("settings") { Text(stringResource(R.string.settings)) }
                 }
                 if (reset) Confirm(stringResource(R.string.reset_question), { reset = false }, { vm.resetStop(); reset = false },
-                    extra = { TextButton(onClick = { shareReport(activity, buildReport(activity, algorithm, stored.checks, stored.timers, stored.settings.testMode)) }) { Text(stringResource(R.string.save_report)) } })
+                    extra = { TextButton(shape = MaterialTheme.shapes.small, onClick = { shareReport(activity, buildReport(activity, algorithm, stored.checks, stored.timers, stored.settings.testMode)) }) { Text(stringResource(R.string.save_report)) } })
             }
             if (busy) LinearProgressIndicator(Modifier.fillMaxWidth())
         }
