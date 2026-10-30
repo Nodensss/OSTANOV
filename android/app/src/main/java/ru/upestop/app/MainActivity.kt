@@ -1,42 +1,31 @@
 package ru.upestop.app
 
+import android.content.Intent
 import android.os.Bundle
-import ru.upestop.app.data.AlgorithmRepository
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.navigation.compose.*
+import androidx.compose.runtime.mutableIntStateOf
+import kotlinx.coroutines.flow.MutableStateFlow
+import ru.upestop.app.timer.TimerScheduler
+import ru.upestop.app.ui.UpeApp
 import ru.upestop.app.ui.theme.UpeTheme
 
 class MainActivity : ComponentActivity() {
+    val pendingPhase = MutableStateFlow<Int?>(null)
+    val permissionRevision = mutableIntStateOf(0)
+    private val app get() = (application as UpeStopApp).container
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContent { UpeTheme {
-            var content by remember { mutableStateOf<String?>(null) }
-            var problem by remember { mutableStateOf<String?>(null) }
-            LaunchedEffect(Unit) {
-                try { content = AlgorithmRepository(this@MainActivity).load().title }
-                catch (error: Exception) { problem = error.localizedMessage }
-            }
-            if (problem != null) { Text(problem.orEmpty()); return@UpeTheme }
-            if (content == null) { Text(stringResource(R.string.loading)); return@UpeTheme }
-            val nav = rememberNavController()
-            val entry by nav.currentBackStackEntryAsState()
-            val tabs = listOf("home" to R.string.home, "checklist" to R.string.checklist, "reference" to R.string.reference, "trainer" to R.string.trainer)
-            Scaffold(bottomBar = { NavigationBar { tabs.forEach { (route, label) ->
-                NavigationBarItem(selected = entry?.destination?.route == route,
-                    onClick = { nav.navigate(route) { launchSingleTop = true } }, icon = {}, label = { Text(stringResource(label)) })
-            } } }) { padding ->
-                NavHost(nav, "home", Modifier.padding(padding)) {
-                    tabs.forEach { (route, label) -> composable(route) { Text(stringResource(label)) } }
-                }
-            }
-        } }
+        if (savedInstanceState == null) readIntent(intent)
+        setContent { UpeTheme { UpeApp(this) } }
     }
+    override fun onNewIntent(intent: Intent) { super.onNewIntent(intent); setIntent(intent); readIntent(intent) }
+    private fun readIntent(intent: Intent) {
+        if (intent.hasExtra(TimerScheduler.EXTRA_PHASE)) pendingPhase.value = intent.getIntExtra(TimerScheduler.EXTRA_PHASE, -1)
+    }
+    override fun onStart() { super.onStart(); app.foreground = true; app.launch { app.timers.restore() } }
+    override fun onStop() { app.foreground = false; super.onStop() }
+    override fun onResume() { super.onResume(); permissionRevision.intValue++ }
 }
