@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Строки интерфейса. Содержание алгоритма (этапы, операции, правила, вопросы) сюда не входит:
+     оно берётся только из data/stop-algorithm.json. -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:locale="ru">
+    <string name="app_name">УПЭ Стоп</string>
+
+    <!-- Общее -->
+    <string name="action_back">Назад</string>
+    <string name="action_cancel">Отмена</string>
+    <string name="action_more">Ещё</string>
+    <string name="action_allow">Разрешить</string>
+    <string name="loading">Загрузка данных…</string>
+    <string name="cd_expand">Развернуть</string>
+    <string name="cd_collapse">Свернуть</string>
+    <string name="disclaimer">Вспомогательный инструмент. При расхождении руководствуйтесь утверждёнными документами.</string>
+
+    <!-- Ошибки данных -->
+    <string name="data_error_title">Ошибка в данных алгоритма</string>
+    <string name="data_error_hint">Файл data/stop-algorithm.json не прошёл проверку. Пока ошибка не исправлена, алгоритм не показывается.</string>
+    <string name="parse_error">Не удалось прочитать JSON: %1$s</string>
+    <string name="validation_no_phases">Нет ни одного этапа</string>
+    <string name="validation_duplicate_phase">Повторяется ID этапа %1$d</string>
+    <string name="validation_duplicate_check">Повторяется ID операции %1$s</string>
+    <string name="validation_empty_check">Пустой текст операции %1$s</string>
+    <string name="validation_param_without_value">У операции %1$s типа «param» не задано значение</string>
+    <string name="validation_timer">Таймер этапа %1$d должен быть больше 0 минут</string>
+    <string name="validation_duplicate_rule">Повторяется ID правила %1$s</string>
+    <string name="validation_duplicate_question">Повторяется ID вопроса %1$s</string>
+    <string name="validation_no_options">У вопроса %1$s нет вариантов ответа</string>
+    <string name="validation_correct_range">У вопроса %1$s номер правильного ответа вне списка вариантов</string>
+    <string name="validation_unknown_phase">Вопрос %1$s ссылается на несуществующий этап %2$d</string>
+
+    <!-- Навигация -->
+    <string name="nav_home">Главная</string>
+    <string name="nav_checklist">Чек-лист</string>
+    <string name="nav_reference">Справочник</string>
+    <string name="nav_trainer">Тренажёр</string>
+
+    <!-- Этап -->
+    <string name="phase_label">Этап %1$d · %2$s</string>
+    <string name="phase_counter">%1$d/%2$d</string>
+    <string name="phase_critical">Критично</string>
+
+    <!-- Главная -->
+    <string name="metric_phases">этапы</string>
+    <string name="metric_checks">операции</string>
+    <string name="metric_rules">правила</string>
+    <string name="metric_questions">вопросы</string>
+    <string name="home_current_stop">Текущая остановка</string>
+    <string name="home_progress">Выполнено %1$d из %2$d · %3$d%%</string>
+    <string name="home_current_phase">Сейчас: этап %1$d · %2$s</string>
+    <string name="home_all_done">Все операции отмечены</string>
+    <string name="home_not_started">Остановка ещё не начата</string>
+    <string name="home_action_start">Начать остановку</string>
+    <string name="home_action_continue">Продолжить</string>
+    <string name="home_action_finished">Остановка завершена — журнал</string>
+    <string name="home_modes">Режимы</string>
+    <string name="home_settings_link">Настройки и о приложении</string>
+    <string name="mode_checklist">Чек-лист</string>
+    <string name="mode_checklist_note">Все операции с отметками и таймерами</string>
+    <string name="mode_step">Пошаговый режим</string>
+    <string name="mode_step_note">Один шаг на экране, крупные кнопки</string>
+    <string name="mode_reference">Справочник</string>
+    <string name="mode_reference_note">Этапы, позиции оборудования, поиск</string>
+    <string name="mode_rules">Критические правила</string>
+    <string name="mode_rules_note">Контрольные ограничения</string>
+    <string name="mode_trainer">Тренажёр</string>
+    <string name="mode_trainer_note">Контрольные вопросы и история попыток</string>
+
+    <!-- Чек-лист -->
+    <string name="checklist_title">Чек-лист</string>
+    <string name="checklist_progress">%1$d из %2$d шагов</string>
+    <string name="checklist_to_current">К текущему шагу</string>
+    <string name="check_done_state">Выполнено</string>
+    <string name="check_not_done_state">Не выполнено</string>
+    <string name="menu_journal">Журнал остановки</string>
+    <string name="menu_reset">Сбросить прогресс</string>
+    <string name="reset_title">Сбросить прогресс?</string>
+    <string name="reset_text">Будут сняты все отметки и сброшены таймеры. История тренажёра сохранится. Перед сбросом можно сохранить журнал.</string>
+    <string name="reset_confirm">Сбросить</string>
+    <string name="reset_save_journal">Журнал</string>
+
+    <!-- Таймер -->
+    <string name="timer_plan">План: %1$d мин</string>
+    <string name="timer_start">Запустить</string>
+    <string name="timer_pause">Пауза</string>
+    <string name="timer_resume">Продолжить</string>
+    <string name="timer_reset">Сбросить таймер</string>
+    <string name="timer_reset_title">Сбросить таймер?</string>
+    <string name="timer_reset_text">Отсчёт таймера этапа %1$d начнётся заново.</string>
+    <string name="timer_finished">Время вышло · %1$s</string>
+    <string name="timer_running_until">Окончание в %1$s</string>
+    <string name="timer_test_mode">Тестовый режим: 1 мин = 1 с</string>
+    <string name="timer_notifications_off">Уведомления выключены — сигнал об окончании не придёт</string>
+
+    <!-- Уведомления -->
+    <string name="channel_timers_running">Таймеры — идут</string>
+    <string name="channel_timers_running_desc">Обратный отсчёт запущенных таймеров этапов</string>
+    <string name="channel_timers_finished">Таймеры — завершены</string>
+    <string name="channel_timers_finished_desc">Сигнал об окончании таймера этапа</string>
+    <string name="notification_timer_title">Этап %1$d · %2$s</string>
+    <string name="notification_timer_finished_title">Время вышло</string>
+    <string name="notification_timer_finished">Этап %1$d · %2$s — %3$d мин истекли</string>
+
+    <!-- Пошаговый режим -->
+    <string name="step_title">Пошаговый режим</string>
+    <string name="step_header">Этап %1$d из %2$d · %3$s</string>
+    <string name="step_counter">Шаг %1$d из %2$d</string>
+    <string name="step_done">Выполнено</string>
+    <string name="step_done_at">Выполнено в %1$s</string>
+    <string name="step_uncheck">Снять отметку</string>
+    <string name="step_prev">Назад</string>
+    <string name="step_next">Вперёд</string>
+    <string name="step_phase_done">Этап %1$d завершён</string>
+    <string name="step_warnings">Предупреждения (%1$d)</string>
+    <string name="step_scheme">Схема</string>
+    <string name="step_all_done_title">Все шаги выполнены</string>
+    <string name="step_all_done_times">Первая отметка: %1$s\nПоследняя: %2$s</string>
+    <string name="step_review">Просмотреть шаги</string>
+    <string name="step_home">На главную</string>
+    <string name="step_open_checklist">Открыть чек-лист</string>
+
+    <!-- Справочник -->
+    <string name="reference_title">Справочник</string>
+    <string name="reference_search_label">Поиск по позициям</string>
+    <string name="reference_search_hint">Найти позицию: А-152, PV-10603, 14047…</string>
+    <string name="reference_clear">Очистить</string>
+    <string name="reference_not_found">Ничего не найдено по запросу «%1$s»</string>
+    <string name="reference_positions_count">%1$d поз.</string>
+    <string name="reference_positions">Позиции</string>
+    <string name="reference_operations">Операции</string>
+
+    <!-- Критические правила -->
+    <string name="rules_title">Критические правила</string>
+    <string name="rules_overline">Контрольные ограничения</string>
+
+    <!-- Тренажёр -->
+    <string name="trainer_title">Тренажёр</string>
+    <string name="trainer_set_label">Набор вопросов</string>
+    <string name="trainer_set_all">Все вопросы (%1$d)</string>
+    <string name="trainer_set_phase">Этап %1$d · %2$s (%3$d)</string>
+    <string name="trainer_set_rules">Критические правила (%1$d)</string>
+    <string name="trainer_set_retry">Повтор ошибок (%1$d)</string>
+    <string name="trainer_start">Начать</string>
+    <string name="trainer_history">История попыток</string>
+    <string name="trainer_question_counter">Вопрос %1$d из %2$d</string>
+    <string name="trainer_phase_tag">Этап %1$d · %2$s</string>
+    <string name="trainer_rules_tag">Критические правила</string>
+    <string name="trainer_next">Далее</string>
+    <string name="trainer_finish">Завершить</string>
+    <string name="trainer_correct">Верно</string>
+    <string name="trainer_wrong">Неверно</string>
+    <string name="trainer_result_overline">Итог тренажёра</string>
+    <string name="trainer_result">%1$d из %2$d правильно — %3$d%%</string>
+    <string name="trainer_mistakes">Ошибки</string>
+    <string name="trainer_no_mistakes">Ошибок нет</string>
+    <string name="trainer_your_answer">Ваш ответ: %1$s</string>
+    <string name="trainer_correct_answer">Правильный ответ: %1$s</string>
+    <string name="trainer_restart">Пройти заново</string>
+    <string name="trainer_retry_mistakes">Повторить ошибки</string>
+
+    <!-- История -->
+    <string name="history_title">История попыток</string>
+    <string name="history_empty">Попыток пока нет</string>
+    <string name="history_unfinished">Не завершена</string>
+    <string name="history_score">%1$d / %2$d · %3$d%%</string>
+    <string name="history_clear">Очистить историю</string>
+    <string name="history_clear_title">Очистить историю?</string>
+    <string name="history_clear_text">Все попытки тренажёра будут удалены.</string>
+    <string name="history_clear_confirm">Очистить</string>
+    <string name="attempt_title">Попытка</string>
+    <string name="attempt_answered">отвечено %1$d из %2$d</string>
+    <string name="attempt_not_answered">Нет ответа</string>
+    <string name="attempt_question_missing">Вопроса %1$s больше нет в данных</string>
+
+    <!-- Журнал -->
+    <string name="journal_title">Журнал остановки</string>
+    <string name="journal_share">Поделиться</string>
+    <string name="journal_copy">Копировать</string>
+    <string name="journal_copied">Журнал скопирован</string>
+    <string name="journal_share_chooser">Отправить журнал</string>
+    <string name="report_header">ЖУРНАЛ ОСТАНОВКИ</string>
+    <string name="report_generated">Сформирован: %1$s</string>
+    <string name="report_done">Выполнено: %1$d из %2$d (%3$d%%)</string>
+    <string name="report_marks_range">Первая отметка: %1$s · Последняя: %2$s</string>
+    <string name="report_no_marks">Отметок пока нет</string>
+    <string name="report_timers_header">ТАЙМЕРЫ</string>
+    <string name="report_timer_line">Этап %1$d · %2$s (%3$d мин): %4$s</string>
+    <string name="report_timer_idle">не запускался</string>
+    <string name="report_timer_running">запущен %1$s, идёт, прошло %2$s</string>
+    <string name="report_timer_paused">на паузе, прошло %1$s</string>
+    <string name="report_timer_finished">запущен %1$s, завершён %2$s</string>
+    <string name="report_phase_line">Этап %1$d · %2$s</string>
+    <string name="report_critical">[КРИТИЧНО]</string>
+
+    <!-- Настройки -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_keep_screen">Не гасить экран в чек-листе</string>
+    <string name="settings_keep_screen_note">Экран не гаснет в чек-листе и пошаговом режиме</string>
+    <string name="settings_haptics">Вибрация при отметке</string>
+    <string name="settings_haptics_note">Короткий тактильный отклик при отметке операции</string>
+    <string name="settings_timer_signal">Звук и вибрация таймера</string>
+    <string name="settings_timer_signal_note">Сигнал окончания таймера настраивается в системных настройках уведомлений</string>
+    <string name="settings_open_channel">Настроить</string>
+    <string name="settings_permissions">Разрешения</string>
+    <string name="settings_notifications">Уведомления</string>
+    <string name="settings_exact_alarms">Точные будильники</string>
+    <string name="settings_open">Открыть</string>
+    <string name="status_allowed">Разрешено</string>
+    <string name="status_denied">Не разрешено</string>
+    <string name="settings_debug">Только для проверки</string>
+    <string name="settings_test_mode">Тестовый режим таймеров: 1 мин = 1 с</string>
+    <string name="settings_test_mode_locked">Остановите таймеры, чтобы переключить режим</string>
+    <string name="about_title">О приложении</string>
+    <string name="about_version">Версия %1$s</string>
+    <string name="about_counts">Этапы: %1$d · Операции: %2$d · Правила: %3$d · Вопросы: %4$d</string>
+    <string name="about_sources">Основания</string>
+    <string name="about_offline">Работает без интернета. Данные хранятся только на этом устройстве.</string>
+</resources>

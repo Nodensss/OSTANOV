@@ -46,6 +46,10 @@ DATABASE_URL="postgresql://USER:PASSWORD@HOST:PORT/DATABASE?sslmode=require"
 3. Выполнить `npm run prisma:push` для выбранной базы или подключить миграционный шаг отдельно.
 4. Задеплоить проект.
 
+## Android-приложение
+
+В каталоге [`android/`](android/README.md) — офлайн-приложение для Android (Kotlin, Jetpack Compose) на тех же данных `data/stop-algorithm.json`: чек-лист, пошаговый режим, таймеры с уведомлениями, справочник, тренажёр и журнал остановки. APK последней версии: [Releases](https://github.com/Nodensss/OSTANOV/releases/latest). Сборка, установка и архитектура описаны в [`android/README.md`](android/README.md).
+
 ## Как обновлять алгоритм
 
 Для добавления нового этапа, позиции, предупреждения или вопроса нужно отредактировать `data/stop-algorithm.json`.
