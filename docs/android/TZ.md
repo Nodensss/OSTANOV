@@ -452,7 +452,7 @@ JVM unit-тесты в `app/src/test`, только для `domain/` и парс
 Файл `.github/workflows/android.yml` (эталон — Приложение Б).
 
 - **Триггеры:** `pull_request` и `push` в `main` при изменениях в `android/**`, `data/**`, `scripts/check-android-content.py` или самом workflow; `workflow_dispatch`.
-- **Шаги:** `python3 scripts/check-android-content.py` → JDK 17 (temurin) → `android-actions/setup-android@v3` → `gradle/actions/setup-gradle@v4` с `gradle-version: 8.11.1` → `gradle testDebugUnitTest lintDebug assembleDebug` в `android/`.
+- **Шаги:** `python3 scripts/check-android-content.py` → JDK 17 (temurin) → `android-actions/setup-android@v3` с явным списком пакетов (`platform-tools platforms;android-35 build-tools;35.0.0`; пакет `tools` по умолчанию больше не существует) → `gradle/actions/setup-gradle@v4` с `gradle-version: 8.11.1` → `gradle testDebugUnitTest lintDebug assembleDebug` в `android/`.
 - **Подпись (необязательно):** если заданы секреты `ANDROID_KEYSTORE_BASE64`, `ANDROID_KEYSTORE_PASSWORD`, `ANDROID_KEY_ALIAS`, `ANDROID_KEY_PASSWORD`, дополнительно собирается `assembleRelease`, подписанный этим ключом, и публикуется он. Без секретов публикуется debug-APK. Сборка не должна падать из-за отсутствия секретов.
 - **Артефакты каждого запуска:** `upe-stop-apk` (файл `upe-stop-<versionName>.apk`, хранение 30 дней) и `reports` (отчёты lint и тестов, `if: always()`).
 - **Релиз:** при `push` в `main` (и `workflow_dispatch` на `main`) создаётся GitHub Release `android-v<versionName>` с приложенным APK, чтобы последнюю версию можно было скачать прямо с телефона по ссылке `https://github.com/Nodensss/OSTANOV/releases/latest`.
@@ -817,6 +817,10 @@ jobs:
           java-version: "17"
 
       - uses: android-actions/setup-android@v3
+        with:
+          # По умолчанию action ставит пакет "tools", которого больше нет в репозитории SDK.
+          packages: "platform-tools platforms;android-35 build-tools;35.0.0"
+          log-accepted-android-sdk-licenses: false
 
       - uses: gradle/actions/setup-gradle@v4
         with:
