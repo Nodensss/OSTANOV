@@ -10,6 +10,8 @@
 | Подготовка окружения | [`scripts/codex-android-setup.sh`](https://github.com/Nodensss/OSTANOV/blob/main/scripts/codex-android-setup.sh) |
 | Результат | PR в `main` + APK в артефактах GitHub Actions; после слияния — в [Releases](https://github.com/Nodensss/OSTANOV/releases/latest) |
 
+> **Статус:** реализовано в [`android/`](../../android/README.md). Отклонения и решения описаны в `android/README.md`, раздел «Принятые решения». Дальнейшие доработки ведутся по этому ТЗ с сохранением зелёных проверок раздела 13.
+
 > **Для Codex.** Выполни ТЗ целиком: разделы 3–11 — что сделать, раздел 12 — порядок работы, раздел 13 — критерии приёмки. Не останавливайся на промежуточных этапах и не задавай вопросов. Если ТЗ что-то не определяет, прими разумное решение и запиши его в `android/README.md`, раздел «Принятые решения». Задача считается выполненной, только когда проходят все проверки из раздела 13.
 
 ---
@@ -163,7 +165,7 @@ android/
     └── src/
         ├── main/
         │   ├── AndroidManifest.xml
-        │   ├── res/                 # values/strings.xml, values/themes.xml, drawable/ (только XML), mipmap-anydpi-v26/
+        │   ├── res/                 # values/strings.xml, values/themes.xml, drawable/ (только XML), mipmap-anydpi/
         │   └── java/ru/upestop/app/
         │       ├── UpeStopApp.kt            # Application + AppContainer
         │       ├── MainActivity.kt
@@ -196,7 +198,7 @@ android/
 Агент не всегда может закоммитить бинарные файлы, поэтому:
 
 - **Бинарные файлы в репозиторий не добавлять**: никаких `.png`, `.jpg`, `.webp`, `.ttf`, `.jar`, `.jks`.
-- Иконка приложения — adaptive icon только из векторных XML (`drawable/ic_launcher_foreground.xml`, `ic_launcher_background.xml`, `ic_launcher_monochrome.xml`, `mipmap-anydpi-v26/ic_launcher.xml` и `ic_launcher_round.xml`). Мотив: контур восьмиугольника (знак «стоп») цвета `#60A5FA` на фоне `#0A0D0F`, внутри — галочка.
+- Иконка приложения — adaptive icon только из векторных XML (`drawable/ic_launcher_foreground.xml`, `ic_launcher_background.xml`, `ic_launcher_monochrome.xml`, `mipmap-anydpi/ic_launcher.xml` и `ic_launcher_round.xml`). Мотив: контур восьмиугольника (знак «стоп») цвета `#60A5FA` на фоне `#0A0D0F`, внутри — галочка.
 - Шрифты системные: `FontFamily.Default` для текста, `FontFamily.Monospace` для номеров, ID, параметров и таймеров. Шрифты IBM Plex не встраивать.
 - Исполняемую часть Gradle Wrapper (`gradlew`, `gradlew.bat`, `gradle-wrapper.jar`) не добавлять. Локально и в CI используется установленный `gradle` версии 8.11.1 (`gradle/actions/setup-gradle` с `gradle-version`). Добавить только текстовый `android/gradle/wrapper/gradle-wrapper.properties` (Приложение А): по нему Android Studio сама скачает нужный Gradle.
 
@@ -563,7 +565,7 @@ base64 -w0 upe-stop.jks   # → секрет ANDROID_KEYSTORE_BASE64; парол
 
 ## Приложение А. Проверенный каркас сборки
 
-Эта конфигурация собрана и проверена командой `gradle --no-daemon testDebugUnitTest lintDebug assembleDebug` (Gradle 8.11.1, JDK 17/21, Android SDK platform 35, build-tools 35.0.0). Переносить как есть, добавлять только недостающие зависимости.
+Исходный каркас. В итоговой сборке `android/` к нему добавлены только тестовые зависимости (Robolectric, Compose UI test) и `testOptions`. Эта конфигурация собрана и проверена командой `gradle --no-daemon testDebugUnitTest lintDebug assembleDebug` (Gradle 8.11.1, JDK 17/21, Android SDK platform 35, build-tools 35.0.0). Переносить как есть, добавлять только недостающие зависимости.
 
 `android/settings.gradle.kts`
 
